@@ -1,0 +1,168 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+  background-color: #f5f9f6;
+  color: #333;
+  line-height: 1.6;
+}
+
+header {
+  background: linear-gradient(90deg, #2c6e49, #4c956c);
+  color: white;
+  padding: 20px 15px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+header nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+  color: #d8f3dc;
+}
+
+section {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #2c6e49;
+}
+
+section p {
+  margin-bottom: 10px;
+}
+
+#categorias ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+#categorias ul li {
+  background: #d8e9e4;
+  border: 1px solid #2c6e49;
+  border-radius: 6px;
+  padding: 10px 15px;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+#categorias ul li:hover {
+  transform: scale(1.05);
+  background: #b7dfcc;
+}
+
+#proyectos table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+#proyectos th {
+  background: #4c956c;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+#proyectos td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+#proyectos tr:nth-child(even) {
+  background: #f1f8f5;
+}
+
+#proyectos img {
+  border-radius: 5px;
+}
+
+form {
+  display: grid;
+  gap: 15px;
+}
+
+form label {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+  border: 1px solid #2c6e49;
+}
+
+input[type="submit"] {
+  background: #2c6e49;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background: #4c956c;
+}
+
+footer {
+  background: #2c6e49;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+  border-top: 4px solid #4c956c;
+}
