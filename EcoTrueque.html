@@ -4,42 +4,51 @@
     <link rel="stylesheet" href="EcoTrueque.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoTrueque</title>
+    <title>🌱 EcoTrueque - Intercambia y Recicla</title>
     <link rel="icon" type="image/png" href="EcoTrueque Favicon.png">
+    
 </head>
 <body>
-
-    <!-- Encabezado -->
     <header>
         <h1>🌱 EcoTrueque</h1>
         <nav>
             <ul>
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#sobre-mi">Sobre mí</a></li>
-                <li><a href="#proyectos">Objetos</a></li>
                 <li><a href="#categorias">Categorías</a></li>
+                <li><a href="#objetos">Objetos</a></li>
+                <li><a href="#publicar">Publicar</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
-
-         <button id="btn-tema">🌗 Cambiar tema</button>
-
+        <button id="btn-tema">🌗 Cambiar tema</button>
     </header>
 
-    <!-- Sección de bienvenida -->
     <main>
         <section id="inicio">
             <h2>Bienvenido a EcoTrueque</h2>
-            <p>Intercambia objetos que ya no usas por otros que necesites. Reduce, reutiliza y ayuda al planeta. 🌍</p>
+            <p style="text-align: center; font-size: 1.2rem; line-height: 1.8;">
+                Intercambia objetos que ya no usas por otros que necesites. 
+                <strong>Reduce, reutiliza y ayuda al planeta.</strong> 🌍
+            </p>
+            <p style="text-align: center; margin-top: 15px; color: #666;">
+                Únete a nuestra comunidad y contribuye a un mundo más sostenible a través del trueque consciente.
+            </p>
         </section>
 
-        <!-- Sección sobre mí -->
         <section id="sobre-mi">
-            <h2>Sobre mí</h2>
-            <p>Soy el creador de EcoTrueque, una plataforma que conecta a personas interesadas en el consumo responsable y la economía circular.</p>
+            <h2>Sobre EcoTrueque</h2>
+            <p style="line-height: 1.8;">
+                EcoTrueque es una plataforma que conecta a personas interesadas en el consumo responsable 
+                y la economía circular. Nuestro objetivo es reducir el desperdicio dando una segunda vida 
+                a los objetos que ya no necesitas.
+            </p>
+            <p style="margin-top: 15px; line-height: 1.8;">
+                <strong>¿Cómo funciona?</strong> Publica los objetos que quieres intercambiar, explora lo que otros 
+                ofrecen, y conecta directamente para hacer el trueque. ¡Sin dinero de por medio, solo intercambio justo!
+            </p>
         </section>
 
-        <!-- Lista de categorías -->
         <section id="categorias">
             <h2>Categorías de trueque</h2>
             <ul>
@@ -48,72 +57,95 @@
                 <li>🎮 Electrónica</li>
                 <li>🚲 Transporte</li>
                 <li>🪑 Hogar</li>
+                <li>🎨 Arte y Manualidades</li>
             </ul>
         </section>
 
-        <!-- Tabla de objetos disponibles -->
-        <section id="proyectos">
+        <section id="objetos">
             <h2>Objetos disponibles para trueque</h2>
-            <table border="1" cellpadding="8">
-                <thead>
-                    <tr>
-                        <th>Imagen</th>
-                        <th>Nombre del objeto</th>
-                        <th>Estado</th>
-                        <th>Usuario</th>
-                        <th>Disponibilidad</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><img src="bicicleta.jpg" alt="Bicicleta" width="80"></td>
-                        <td>Bicicleta usada</td>
-                        <td>Muy buen estado</td>
-                        <td>Ana</td>
-                        <td>Disponible</td>
-                    </tr>
-                    <tr>
-                        <td><img src="libros.jpg" alt="Libros" width="80"></td>
-                        <td>Lote de libros</td>
-                        <td>Usados</td>
-                        <td>Carlos</td>
-                        <td>Disponible</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id="alertContainer"></div>
+            <div class="objetos-grid" id="objetosGrid"></div>
         </section>
 
-        <!-- Formulario de contacto -->
+        <section id="publicar">
+            <h2>Publicar un objeto</h2>
+            <form id="formPublicar">
+                <div class="form-group">
+                    <label for="nombreObjeto">Nombre del objeto *</label>
+                    <input type="text" id="nombreObjeto" required placeholder="Ej: Bicicleta de montaña">
+                </div>
+
+                <div class="form-group">
+                    <label for="categoria">Categoría *</label>
+                    <select id="categoria" required>
+                        <option value="">Selecciona una categoría</option>
+                        <option value="libros">📚 Libros</option>
+                        <option value="ropa">👕 Ropa</option>
+                        <option value="electronica">🎮 Electrónica</option>
+                        <option value="transporte">🚲 Transporte</option>
+                        <option value="hogar">🪑 Hogar</option>
+                        <option value="arte">🎨 Arte y Manualidades</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="estado">Estado del objeto *</label>
+                    <select id="estado" required>
+                        <option value="">Selecciona el estado</option>
+                        <option value="nuevo">Nuevo</option>
+                        <option value="como nuevo">Como nuevo</option>
+                        <option value="muy buen estado">Muy buen estado</option>
+                        <option value="buen estado">Buen estado</option>
+                        <option value="usado">Usado</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion" rows="4" placeholder="Describe tu objeto, su historia, por qué lo intercambias..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="nombreUsuario">Tu nombre *</label>
+                    <input type="text" id="nombreUsuario" required placeholder="¿Cómo te llamas?">
+                </div>
+
+                <button type="submit" class="btn-submit">🌱 Publicar objeto</button>
+            </form>
+        </section>
+
         <section id="contacto">
-            <h2>Formulario de contacto</h2>
-            <form>
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required><br><br>
+            <h2>Contacto</h2>
+            <form id="formContacto">
+                <div class="form-group">
+                    <label for="nombre">Nombre *</label>
+                    <input type="text" id="nombre" required placeholder="Tu nombre completo">
+                </div>
 
-                <label for="email">Correo:</label>
-                <input type="email" id="email" name="email" required><br><br>
+                <div class="form-group">
+                    <label for="email">Correo electrónico *</label>
+                    <input type="email" id="email" required placeholder="tu@email.com">
+                </div>
 
-                <label for="categoria">Categoría de interés:</label>
-                <select id="categoria" name="categoria">
-                    <option value="libros">Libros</option>
-                    <option value="ropa">Ropa</option>
-                    <option value="electronica">Electrónica</option>
-                    <option value="transporte">Transporte</option>
-                    <option value="hogar">Hogar</option>
-                </select><br><br>
+                <div class="form-group">
+                    <label for="asunto">Asunto *</label>
+                    <input type="text" id="asunto" required placeholder="¿Sobre qué quieres escribirnos?">
+                </div>
 
-                <label for="mensaje">Mensaje:</label><br>
-                <textarea id="mensaje" name="mensaje" rows="4" cols="40"></textarea><br><br>
+                <div class="form-group">
+                    <label for="mensaje">Mensaje *</label>
+                    <textarea id="mensaje" rows="5" required placeholder="Escribe tu mensaje aquí..."></textarea>
+                </div>
 
-                <input type="submit" value="Enviar">
+                <button type="submit" class="btn-submit">📧 Enviar mensaje</button>
             </form>
         </section>
     </main>
 
-    <!-- Pie de página -->
     <footer>
-        <p>© 2025 EcoTrueque | Hecho con cariño para un mundo más sostenible</p>
+        <p>© 2025 EcoTrueque | Hecho con cariño para un mundo más sostenible 🌍</p>
+        <p style="margin-top: 10px; font-size: 0.9rem;">Reduce • Reutiliza • Recicla</p>
     </footer>
-<script src="EcoTrueque.js"></script>
+    <script src="EcoTrueque.js"></script>
 </body>
 </html>

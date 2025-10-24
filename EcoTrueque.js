@@ -1,91 +1,187 @@
-let objetos = [
-    { nombre: "Bicicleta usada", estado: "Muy buen estado", usuario: "Ana", disponible: true },
-    { nombre: "Lote de libros", estado: "Usados", usuario: "Carlos", disponible: true }
-];
 
-let formulario = document.querySelector("form");
-let tablaObjetos = document.querySelector("tbody");
+        const categoriaEmojis = {
+            'libros': '📚',
+            'ropa': '👕',
+            'electronica': '🎮',
+            'transporte': '🚲',
+            'hogar': '🪑',
+            'arte': '🎨'
+        };
 
-// =========================
-// FUNCIONES
-// =========================
+        
+        let objetos = [
+            { 
+                nombre: "Bicicleta de montaña", 
+                estado: "Muy buen estado", 
+                usuario: "Ana García", 
+                categoria: "transporte",
+                descripcion: "Bicicleta usada poco, perfecta para paseos",
+                disponible: true 
+            },
+            { 
+                nombre: "Colección de libros de fantasía", 
+                estado: "Buen estado", 
+                usuario: "Carlos Ruiz", 
+                categoria: "libros",
+                descripcion: "10 libros de la saga Canción de Hielo y Fuego",
+                disponible: true 
+            },
+            { 
+                nombre: "Lámpara de escritorio LED", 
+                estado: "Como nuevo", 
+                usuario: "María López", 
+                categoria: "hogar",
+                descripcion: "Lámpara moderna con regulador de intensidad",
+                disponible: true 
+            },
+            { 
+                nombre: "Auriculares Bluetooth", 
+                estado: "Buen estado", 
+                usuario: "Pedro Martínez", 
+                categoria: "electronica",
+                descripcion: "Funcionan perfectamente, incluye estuche",
+                disponible: true 
+            },
+            { 
+                nombre: "Chaqueta de invierno", 
+                estado: "Muy buen estado", 
+                usuario: "Laura Fernández", 
+                categoria: "ropa",
+                descripcion: "Talla M, color negro, muy abrigada",
+                disponible: true 
+            },
+            { 
+                nombre: "Set de pinturas acrílicas", 
+                estado: "Nuevo", 
+                usuario: "Javier Torres", 
+                categoria: "arte",
+                descripcion: "24 colores, sin abrir",
+                disponible: true 
+            }
+        ];
 
-// Función para mostrar objetos en la tabla
-function mostrarObjetos() {
-    tablaObjetos.innerHTML = ""; // limpiar tabla
-    objetos.forEach(obj => {
-        let fila = document.createElement("tr");
-        fila.innerHTML = `
-            <td>📦</td>
-            <td>${obj.nombre}</td>
-            <td>${obj.estado}</td>
-            <td>${obj.usuario}</td>
-            <td>${obj.disponible ? "Disponible ✅" : "No disponible ❌"}</td>
-        `;
-        tablaObjetos.appendChild(fila);
-    });
-}
+        
+        function mostrarObjetos() {
+            const grid = document.getElementById('objetosGrid');
+            grid.innerHTML = '';
 
-// Función para agregar un nuevo objeto desde el formulario
-function agregarObjeto(nombre, estado, usuario) {
-    objetos.push({ nombre, estado, usuario, disponible: true });
-    mostrarObjetos();
-    alert(`✅ El objeto "${nombre}" fue agregado correctamente.`);
-}
+            if (objetos.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1;">No hay objetos disponibles aún. ¡Sé el primero en publicar!</p>';
+                return;
+            }
 
-// Función de validación del formulario
-function validarFormulario(nombre, email) {
-    if (nombre === "" || email === "") {
-        alert("⚠️ Por favor completa todos los campos obligatorios.");
-        return false;
-    }
-    return true;
-}
+            objetos.forEach((obj, index) => {
+                const card = document.createElement('div');
+                card.className = 'objeto-card';
+                
+                const emoji = categoriaEmojis[obj.categoria] || '📦';
+                
+                card.innerHTML = `
+                    <div class="objeto-img">${emoji}</div>
+                    <div class="objeto-info">
+                        <h3>${obj.nombre}</h3>
+                        <p><strong>Estado:</strong> ${obj.estado}</p>
+                        <p><strong>Usuario:</strong> ${obj.usuario}</p>
+                        ${obj.descripcion ? `<p style="font-size: 0.9rem; margin-top: 10px;">${obj.descripcion}</p>` : ''}
+                        <span class="badge ${obj.disponible ? 'badge-disponible' : 'badge-reservado'}">
+                            ${obj.disponible ? '✅ Disponible' : '⏳ Reservado'}
+                        </span>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
 
-// =========================
-// EVENTOS
-// =========================
+        
+        function mostrarAlerta(mensaje, tipo = 'success') {
+            const container = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${tipo}`;
+            alert.textContent = mensaje;
+            
+            container.innerHTML = '';
+            container.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
 
-// Evento: enviar formulario
-formulario.addEventListener("submit", function (e) {
-    e.preventDefault();
+        
+        document.getElementById('formPublicar').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nombreObjeto = document.getElementById('nombreObjeto').value.trim();
+            const categoria = document.getElementById('categoria').value;
+            const estado = document.getElementById('estado').value;
+            const descripcion = document.getElementById('descripcion').value.trim();
+            const nombreUsuario = document.getElementById('nombreUsuario').value.trim();
+            
+            if (!nombreObjeto || !categoria || !estado || !nombreUsuario) {
+                mostrarAlerta('⚠️ Por favor completa todos los campos obligatorios', 'error');
+                return;
+            }
+            
+            const nuevoObjeto = {
+                nombre: nombreObjeto,
+                estado: estado,
+                usuario: nombreUsuario,
+                categoria: categoria,
+                descripcion: descripcion,
+                disponible: true
+            };
+            
+            objetos.unshift(nuevoObjeto);
+            mostrarObjetos();
+            
+            mostrarAlerta(`✅ ¡Excelente! "${nombreObjeto}" ha sido publicado correctamente`, 'success');
+            
+            this.reset();
+            
+            document.getElementById('objetos').scrollIntoView({ behavior: 'smooth' });
+        });
 
-    let nombre = document.getElementById("nombre").value;
-    let email = document.getElementById("email").value;
-    let categoria = document.getElementById("categoria").value;
-    let mensaje = document.getElementById("mensaje").value;
+        
+        document.getElementById('formContacto').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nombre = document.getElementById('nombre').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const asunto = document.getElementById('asunto').value.trim();
+            const mensaje = document.getElementById('mensaje').value.trim();
+            
+            if (!nombre || !email || !asunto || !mensaje) {
+                alert('⚠️ Por favor completa todos los campos');
+                return;
+            }
+            
+            alert(`✅ Gracias ${nombre}! Tu mensaje ha sido enviado. Te responderemos pronto a ${email}`);
+            this.reset();
+        });
 
-    // Condicionales para validar
-    if (!validarFormulario(nombre, email)) {
-        return;
-    }
+        
+        const botonTema = document.getElementById('btn-tema');
+        botonTema.addEventListener('click', () => {
+            document.body.classList.toggle('oscuro');
+            
+            if (document.body.classList.contains('oscuro')) {
+                botonTema.textContent = '☀️ Modo Claro';
+            } else {
+                botonTema.textContent = '🌗 Modo Oscuro';
+            }
+        });
 
-    // Agregar el objeto a la tabla (ejemplo con mensaje como nombre del objeto)
-    agregarObjeto(mensaje || "Objeto sin nombre", `Categoría: ${categoria}`, nombre);
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
 
-    // Limpiar el formulario
-    formulario.reset();
-});
-
-let botonTema = document.getElementById("btn-tema");
-
-botonTema.addEventListener("click", () => {
-    document.body.classList.toggle("oscuro");
-
-    // Animación del botón al hacer clic
-    botonTema.style.transform = "scale(0.9)";
-    setTimeout(() => {
-        botonTema.style.transform = "scale(1)";
-    }, 150);
-
-    if (document.body.classList.contains("oscuro")) {
-        botonTema.textContent = "☀️ Modo Claro";
-    } else {
-        botonTema.textContent = "🌗 Modo Oscuro";
-    }
-});
-
-// =========================
-// INICIO
-// =========================
-mostrarObjetos();
+        
+        mostrarObjetos();
